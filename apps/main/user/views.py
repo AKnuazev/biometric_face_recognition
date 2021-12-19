@@ -15,11 +15,7 @@ class CurrentUserViewSet(ViewSet):
         return Response(data=user_data)
 
 
-class UsersViewSet(BfrCreateModelMixin,
-                   BfrRetrieveModelMixin,
-                   BfrUpdateModelMixin,
-                   BfrListModelMixin,
-                   viewsets.GenericViewSet):
+class UsersViewSet(BfrModelViewSet):
     queryset = BfrUser.objects.all()
     serializer_class = BfrUserSerializer
 
