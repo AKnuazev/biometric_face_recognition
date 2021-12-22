@@ -1,12 +1,12 @@
 set PGPASSWORD=123456qQ
 set errorlevel=
 
-c:\"Program Files"\PostgreSQL\14\bin\psql.exe -U postgres -c "drop database bfr;"
-c:\"Program Files"\PostgreSQL\14\bin\psql.exe -U postgres -c "create database bfr;"
+E:\PostgreSQL\13\bin\psql.exe -U postgres -c "drop database bfr;"
+E:\PostgreSQL\13\bin\psql.exe -U postgres -c "create database bfr;"
 
-..\venv\Scripts\python.exe ..\manage.py makemigrations
-..\venv\Scripts\python.exe ..\manage.py migrate
-..\venv\Scripts\python.exe ..\scripts\init_data.py
+E:\YandexDisk\biometric_face_recognition\venv\Scripts\python.exe E:\YandexDisk\biometric_face_recognition\manage.py makemigrations
+E:\YandexDisk\biometric_face_recognition\venv\Scripts\python.exe E:\YandexDisk\biometric_face_recognition\manage.py migrate
+E:\YandexDisk\biometric_face_recognition\venv\Scripts\python.exe E:\YandexDisk\biometric_face_recognition\scripts\init_data.py
 
 
 
