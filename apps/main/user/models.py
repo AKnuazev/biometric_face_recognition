@@ -3,6 +3,7 @@ from django.contrib.auth.models import PermissionsMixin
 from django.contrib.auth.base_user import AbstractBaseUser
 from .managers import UserManager
 from common.constants import *
+from recognizer.Recognizer import RecognizationService
 
 
 class BfrUser(AbstractBaseUser, PermissionsMixin):
@@ -37,6 +38,7 @@ class BfrUser(AbstractBaseUser, PermissionsMixin):
         if self.otchestvo:
             self.otchestvo = self.otchestvo.capitalize()
         super(BfrUser, self).save(*args, **kwargs)
+        RecognizationService.save_current_image(user_id=self.id)
 
     def get_full_name(self):
         """

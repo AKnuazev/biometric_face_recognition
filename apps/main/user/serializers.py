@@ -30,6 +30,6 @@ class BfrUserSerializer(serializers.ModelSerializer):
         if 'password' not in validated_data:
             raise Exception('Не задан пароль пользователя!')
         password = validated_data.pop('password')
-        login = validated_data.pop('login')
-        user = BfrUserSerializer.objects.create_user(login, password=password, **validated_data)
+        username = validated_data.pop('username')
+        user = BfrUser.objects.create_user(username, password=password, **validated_data)
         return user

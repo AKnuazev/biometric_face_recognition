@@ -13,6 +13,23 @@ class RecognizationService:
     encode_list_path = fr'{PATH}\face-encode_lsit.pickle'
 
     @classmethod
+    def save_current_image(cls, user_id=1):
+        old_loc = cls.current_image_path
+        new_loc = fr'{PATH}\images_base\{user_id}.jpg'
+        os.replace(old_loc, new_loc)
+        cls.face_train()
+        return True
+
+    @classmethod
+    def delete_image(cls, user_id):
+        if not user_id:
+            print('Ошибка удаления фото')
+            return False
+        image_path = fr'{PATH}\images_base\{user_id}.jpg'
+        os.remove(image_path)
+        return True
+
+    @classmethod
     def make_photo(cls, camera=0):
         """Makes photo from camera and save it"""
         cap = cv.VideoCapture(camera, cv.CAP_DSHOW)
@@ -24,12 +41,27 @@ class RecognizationService:
         faces_amount = len(face_recognition.face_locations(frame))
         if faces_amount != 1:
             print('There more than 1 face in the photo, making new one!')
-            cls.make_photo()
+            return False
+            # cls.make_photo()
         else:
             print('[OK]\tPhoto taken!')
+            return True
 
     @classmethod
-    def face_train(cls, images):
+    def face_train(cls):
+        images = []
+
+        # for root, dirs, files in os.walk(cls.users_images_path):
+        #     for filename in files:
+        #         img_path = os.path.join(root, filename)
+
+        user_images_list = os.listdir(cls.users_images_path)
+
+        for user_image in user_images_list:
+            # current_user_image = cv.imread(fr'{cls.users_images_path}\{user_image}')
+            current_user_image = face_recognition.load_image_file(fr'{cls.users_images_path}\{user_image}')
+            images.append(current_user_image)
+
         encode_lsit = []
         for image in images:
             image = cv.cvtColor(image, cv.COLOR_BGR2RGB)
@@ -38,6 +70,7 @@ class RecognizationService:
         with open(cls.encode_list_path, 'wb') as f:
             pickle.dump(encode_lsit, f)
         print('[OK]\tTraining complete!')
+        return True
 
     @classmethod
     def check_image(cls):
@@ -67,9 +100,6 @@ class RecognizationService:
             if matches[match_index]:
                 name = user_names_list[match_index].upper()
             else:
-                name = 'Unknown person'
-            print(name)
+                name = None
+            return name
 
-
-# RecognizationService.make_photo()
-RecognizationService.test()
