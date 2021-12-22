@@ -2,3 +2,5 @@
 /.idea
 /venv
 /local_settings.py
+/recognizer/current_image/*
+/recognizer/images_base/*

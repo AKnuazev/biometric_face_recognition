@@ -2,6 +2,36 @@
     text-align: center;
 }
 
+.App-topbar {
+    align-self: flex-end;
+    width: 40%;
+    /*background-color: pink;*/
+}
+.App-topbar-btn{
+    align-self: flex-end;
+    border-style:outset;
+    border-radius: 50px;
+    border-width: 10px;
+    border-color: #3A3F4A;
+    padding: 10px;
+    width: 250px;
+    color: lightgray;
+    background-color: #2e333b;
+    font-size: large;
+}
+.App-topbar-btn:hover{
+    align-self: flex-end;
+    border-style:outset;
+    border-radius: 50px;
+    border-width: 10px;
+    border-color: #2e333b;
+    padding: 10px;
+    width: 250px;
+    color: gray;
+    background-color: #191b20;
+    font-size: large;
+}
+
 .App-logo {
     height: 40vmin;
     pointer-events: none;
@@ -47,16 +77,48 @@
     /*box-shadow: 0px 5px 10px #269abc;*/
 }
 
+.Login-button {
+    background-color: #61DAFB;
+    height: 10vh;
+    border-radius: 5vh;
+    padding-inline: 50px;
+
+    /*font*/
+    font-weight: bold;
+    font-size: calc(25px + 2vmin);
+    color: #282c34;
+    /*box-shadow: 0px 5px 10px #269abc;*/
+}
+
+.Login-button:hover {
+    background-color: #2aabd2;
+    height: 10vh;
+    border-radius: 6vh;
+    /*box-shadow: 0px 5px 10px #269abc;*/
+}
+
+.Login-button:hover {
+    background-color: #2aabd2;
+    /*width: 10vh;*/
+    height: 10vh;
+    border-radius: 6vh;
+    /*box-shadow: 0px 5px 10px #269abc;*/
+}
+
 .App-result-area {
     font-size: x-large;
     color: mediumaquamarine;
-    background-color: #3A3F4A;
+    background-color: #2e333b;
     padding: 25px;
     max-width: 90vw;
     /*height: auto;*/
     border-radius: 25px;
     text-align: center;
     margin-top: 50px;
+    border-width: 10px;
+
+    border-style:inset;
+    border-color: #383D48;
 }
 
 .App-link {
