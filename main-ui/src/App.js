@@ -12,11 +12,22 @@ function App() {
 
     const [inAdmin, setInAdmin] = useState(false)
 
-    const [name, setName] = useState()
-    const [username, setUsername] = useState()
-    const [ACL, setACL] = useState()
-    const [phone, setPhone] = useState()
-    const [email, setEmail] = useState()
+    const [name, setName] = useState('')
+    const [username, setUsername] = useState('')
+    const [ACL, setACL] = useState('')
+    const [phone, setPhone] = useState('')
+    const [email, setEmail] = useState('')
+
+    const [loginUserID, setLoginUserID] = useState('')
+    const [loginName, setLoginName] = useState('')
+    const [loginUsername, setLoginUsername] = useState('')
+    const [loginACL, setLoginACL] = useState('')
+    const [loginPhone, setLoginPhone] = useState('')
+    const [loginEmail, setLoginEmail] = useState('')
+
+    const [responseText, setResponseText] = useState('')
+
+    const [imageTaken, setImageTaken] = useState(false)
 
     const sendUserData = async (userData) => {
         try {
@@ -36,12 +47,18 @@ function App() {
             console.log("[X]\t Error: userData loading failed:", e)
         }
     }
-    const  sendNewUserData = async () => {
+    const sendNewUserData = async () => {
         try {
             let userData = {
-                name:username
+                name: name,
+                username: username,
+                ACL: ACL,
+                email: email,
+                phone: phone,
             }
-            let response = await fetch('http://localhost:8000/users', {
+
+
+            let response2 = await fetch('http://localhost:8000/api_v1/main/users', {
                 method: 'post',
                 headers: {
                     'Content-Type': 'application/json;charset=utf-8'
@@ -49,16 +66,33 @@ function App() {
                 body: JSON.stringify(userData)
             });
             // let json = await response.json()
-            let text = await response.text()
-            setRecogResult(text)
+            // let text = await response.text()
+            // setRecogResult(text)
         } catch (e) {
             console.log("[X]\t Error: userData loading failed:", e)
         }
     }
+    const takePicture = async () => {
+        try {
+            let response1 = await fetch('http://localhost:8000/api_v1/main/users/take_photo/', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json;charset=utf-8'
+                },
+            });
+            let json = await response1.json()
+            if (json.success) {
+                setImageTaken(true)
+            }
+        } catch (e) {
+            console.log("[X]\t Error: take picture failed:", e)
+        }
+    }
+
     const login = async () => {
         try {
             setGotLoginResult(true)
-            let response = await fetch('http://localhost:8000/login', {
+            let response = await fetch('http://localhost:8000/api_v1/main/users/login/', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json;charset=utf-8'
@@ -66,18 +100,32 @@ function App() {
                 // body: JSON.stringify(userData)
             });
             let json = await response.json()
-            setImage1Source(json.data.photo_url)
-            setImage2Source(json.data.photo_url)
+            console.log(json.success)
+            if (json.success) {
+                setRecogResult(json.success)
+                if (json.data) {
+                    console.log(json.data)
+                    setResponseText(json.data)
+                    // setImage1Source(json.data.photo_url)
+                    // setImage2Source(json.data.photo_url)
+                }
+                // setLoginUserID(json.data.userId)
+                // setLoginName(json.data.name)
+                // setLoginUsername(json.data.username)
+                // setLoginACL(json.data.acl)
+                // setLoginPhone(json.data.phone)
+                // setLoginEmail(json.data.email)
+            } else {
+                setResponseText('Not recognised')
+            }
             // setChosenUserID(userData.user_id)
             // let text = await response.text()
-            setRecogResult(json.status)
-
         } catch (e) {
             console.log("[X]\t Error: login failed:", e)
         }
     }
     const goToAdmin = () => {
-
+        setInAdmin(true)
     }
     return (
         <div className="App">
@@ -104,8 +152,15 @@ function App() {
                     {/*</button>*/}
                 </div>
                 <p className="App-result-area">
-                    userID: {chosenUserID}<br/>
-                    {recogResult}
+                    Response:<br/>
+                    {responseText}
+                    {/*userID: {userID}<br/>*/}
+                    {/*Recognised: {recogResult}<br/>*/}
+                    {/*Name: {loginName}<br/>*/}
+                    {/*Username: {loginUsername}<br/>*/}
+                    {/*ACL: {loginACL}<br/>*/}
+                    {/*Phone: {loginPhone}<br/>*/}
+                    {/*Email: {loginEmail}<br/>*/}
                 </p>
                 {/*<a*/}
                 {/*  className="App-link"*/}
@@ -116,13 +171,47 @@ function App() {
                 {/*  Learn React*/}
                 {/*</a>*/}
                 {inAdmin &&
-                <form onSubmit={handleSubmit}>
-                    <label>
-                        Имя:
-                        <input type="text" value={this.state.value} onChange={this.handleChange}/>
-                    </label>
-                    <input type="submit" value="Отправить"/>
-                </form>
+                <div>
+                    <form onSubmit={sendNewUserData}>
+                        <label>
+                            Name:
+                            <input type="text" value={name} onChange={setName}/>
+                        </label>
+                        <br/>
+                        <br/>
+                        <label>
+                            Username:
+                            <input type="text" value={username} onChange={setUsername}/>
+                        </label>
+                        <br/>
+                        <br/>
+                        <label>
+                            Email:
+                            <input type="text" value={email} onChange={setEmail}/>
+                        </label>
+                        <br/>
+                        <br/>
+                        <label>
+                            Phone:
+                            <input type="text" value={phone} onChange={setPhone}/>
+                        </label>
+                        <br/>
+                        <br/>
+                        <label>
+                            ACL:
+                            <input type="text" value={ACL} onChange={setACL}/>
+                        </label>
+                        <br/>
+                        <br/>
+                        {imageTaken && <input type="submit" value="Отправить"/>}
+                        {!imageTaken && <input type="submit" value="Отправить" disabled/>}
+                    </form>
+
+                    <button onClick={takePicture}>
+                        Take picture
+                    </button>
+
+                </div>
                 }
             </header>
         </div>

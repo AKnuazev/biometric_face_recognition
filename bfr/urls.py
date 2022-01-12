@@ -8,6 +8,8 @@ from rest_framework.routers import DefaultRouter
 router = DefaultRouter()
 router.registry.extend(main_router.registry)
 
+from apps.main.views import index
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api_v1/', include(router.urls)),
