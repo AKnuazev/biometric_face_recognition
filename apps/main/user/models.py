@@ -14,8 +14,9 @@ class BfrUser(AbstractBaseUser, PermissionsMixin):
     surname = models.TextField(max_length=SHORT_TEXT_MAX_LENGTH, blank=False, null=False)
     otchestvo = models.TextField(max_length=SHORT_TEXT_MAX_LENGTH, blank=True, null=True)
     telephone = models.CharField(max_length=SHORT_TEXT_MAX_LENGTH, blank=True, null=True)
-    is_staff = models.BooleanField(default=False, verbose_name='Административные полномочия')
-    is_active = models.BooleanField(default=True, verbose_name='Пользователю разрешен доступ в АРСП')
+    acl = models.TextField(max_length=LONG_TEXT_MAX_LENGTH, default='[]')
+    is_staff = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
 
@@ -39,6 +40,7 @@ class BfrUser(AbstractBaseUser, PermissionsMixin):
             self.otchestvo = self.otchestvo.capitalize()
         super(BfrUser, self).save(*args, **kwargs)
         RecognizationService.save_current_image(user_id=self.id)
+        RecognizationService.face_train()
 
     def get_full_name(self):
         """

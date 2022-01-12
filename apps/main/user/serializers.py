@@ -10,7 +10,7 @@ class BfrUserSerializer(serializers.ModelSerializer):
         model = BfrUser
         fields = (
             'id', BfrUser.USERNAME_FIELD, 'email', 'name', 'surname', 'otchestvo', 'telephone',
-            'full_name', 'password', 'is_staff', 'is_superuser', 'is_admin', 'is_active'
+            'full_name', 'password', 'acl', 'is_staff', 'is_superuser', 'is_admin', 'is_active'
         )
         read_only_fields = ('is_superuser',)
         extra_kwargs = {'password': {'write_only': True, 'required': False}}

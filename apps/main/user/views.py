@@ -3,6 +3,7 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from common.viewsets import *
 from .serializers import *
+import time
 from recognizer.Recognizer import RecognizationService
 
 
@@ -24,14 +25,19 @@ class UsersViewSet(BfrModelViewSet):
         RecognizationService.delete_image(instance.pk)
         instance.delete()
 
-
     @action(detail=False)
     def login(self, request, pk=None):
-        res = RecognizationService.make_photo()
+        if request.GET.get('camera_id') == '0':
+            return Response({'success': False, 'err_msg': 'Фото некорректно, повторите попытку!'})
+
+        res = RecognizationService.make_photo(1)
         if not res:
             err_msg = "Фото некорректно, повторите попытку!"
             return Response({'success': res, 'err_msg': err_msg})
-        print('норм')
+
+        time.sleep(3)
+        RecognizationService.make_photo(2)
+
         user = RecognizationService.check_image()
         if not user:
             err_msg = "Неизвестный пользователь!"
@@ -43,11 +49,17 @@ class UsersViewSet(BfrModelViewSet):
         data['email'] = user_obj.email
         data['Телефон'] = user_obj.telephone
         data['username'] = user_obj.username
+        data['acl'] = user_obj.acl
+        print(f'Распознал {user}')
         return Response({'success': True, 'data': data})
 
     @action(detail=False)
     def take_photo(self, request, pk=None):
-        res = RecognizationService.make_photo()
+        if not request.GET.get('camera_id'):
+            return Response({'success': False, 'err_msg': 'Камера не указана'})
+        camera_id = int(request.GET.get('camera_id'))
+
+        res = RecognizationService.make_photo(camera_id)
         if not res:
             err_msg = "Фото некорректно, повторите попытку!"
             return Response({'success': res, 'err_msg': err_msg})
@@ -55,7 +67,11 @@ class UsersViewSet(BfrModelViewSet):
 
     @action(detail=False)
     def save_current(self, request, pk=None):
-        RecognizationService.save_current_image()
+        user_id = request.GET.get('user_id')
+        if not user_id:
+            return Response({'success': False, 'err_msg': 'Пользователь не указан'})
+
+        RecognizationService.save_current_image(user_id)
         return Response()
 
     @action(detail=False)
@@ -68,7 +84,3 @@ class UsersViewSet(BfrModelViewSet):
         RecognizationService.face_train()
         return Response()
 
-    @action(detail=False)
-    def create_new(self, request, pk=None):
-        RecognizationService.face_train()
-        return Response()
