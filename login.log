@@ -137,3 +137,38 @@ AssertionError: The field 'acl' was declared on serializer BfrUserInfoSerializer
 02/21/2022 05:15:00 Пользователь Stav Artem Vict [id: 2] вошел через Главная дверь [id: 1]
 02/21/2022 05:15:55 Пользователь Stav Artem Vict [id: 2] попытался войти через Второй этаж [id: 2], но у него нет доступа
 02/21/2022 05:16:12 Пользователь Stav Artem Vict [id: 2] вышел через Главная дверь [id: 1]
+02/21/2022 16:16:28 Internal Server Error: /api_v1/main/users/login/
+Traceback (most recent call last):
+  File "C:\BFR\biometric_face_recognition\venv\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "C:\BFR\biometric_face_recognition\venv\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\BFR\biometric_face_recognition\venv\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "C:\BFR\biometric_face_recognition\venv\lib\site-packages\rest_framework\viewsets.py", line 125, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "C:\BFR\biometric_face_recognition\venv\lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\BFR\biometric_face_recognition\venv\lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "C:\BFR\biometric_face_recognition\venv\lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "C:\BFR\biometric_face_recognition\venv\lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "C:\BFR\biometric_face_recognition\apps\main\user\views.py", line 66, in login
+    if door in user_obj.acl.all():
+AttributeError: 'NoneType' object has no attribute 'acl'
+02/21/2022 16:17:17 Not Found: /manifest.json
+02/21/2022 16:17:33 Not Found: /manifest.json
+02/21/2022 16:17:44 Пользователь Stav Artem Vict [id: 2] вошел через Главная дверь [id: 1]
+02/21/2022 16:19:08 Неизвестный пользователь попытался войти через Главная дверь[id: 1]
+02/21/2022 16:19:18 Not Found: /manifest.json
+02/21/2022 16:19:24 Неизвестный пользователь попытался войти через Главная дверь[id: 1]
+02/21/2022 16:24:07 Пользователь Stav Artem Vict [id: 2] вышел через Главная дверь [id: 1]
+02/21/2022 16:25:34 Пользователь Stav Artem Vict [id: 2] вошел через Главная дверь [id: 1]
+02/21/2022 16:25:42 Not Found: /manifest.json
+02/21/2022 16:25:53 Not Found: /manifest.json
+02/21/2022 16:25:58 Неизвестный пользователь попытался войти через Главная дверь[id: 1]
+02/21/2022 16:26:10 Пользователь Stav Artem Vict [id: 2] попытался войти через Второй этаж [id: 2], но у него нет доступа
+02/21/2022 16:26:23 Пользователь Stav Artem Vict [id: 2] вошел через Главная дверь [id: 1]
+02/21/2022 16:29:01 Пользователь Stav Artem Vict [id: 2] вошел через Главная дверь [id: 1]

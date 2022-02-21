@@ -29,24 +29,28 @@ function App() {
     const [responseText, setResponseText] = useState('')
 
     const [imageTaken, setImageTaken] = useState(false)
-
+    const [firstRender, setFirstRender] = useState(true)
     const EXAMPLE_DOORS = [
         {
+            'id': 1,
             'code': 12,
             "name": "Дверь 1",
             "users_indoor_list": [2]
         },
         {
+            'id': 2,
             'code': 23,
             "name": "Дверь 2",
             "users_indoor_list": [2]
         },
         {
+            'id': 3,
             'code': 34,
             "name": "Дверь 3",
             "users_indoor_list": [2]
         },
         {
+            'id': 4,
             'code': 45,
             "name": "Дверь 4",
             "users_indoor_list": [2]
@@ -54,27 +58,30 @@ function App() {
     ]
     const [doors, setDoors] = useState(EXAMPLE_DOORS)
     useEffect(() => {
-        const loadDoors = async () => {
-            let response = await fetch('http://localhost:8000/api_v1/main/rooms', {
-                method: 'GET',
-                // headers: {
-                //     'Content-Type': 'application/json;charset=utf-8'
-                // },
-            });
-            let json = await response.json()
-            if (json.success) {
-                setDoors(true)
+        console.log("[i] in effect", firstRender)
+        if (firstRender) {
+            const loadDoors = async () => {
+                let response = await fetch('http://localhost:8000/api_v1/main/rooms', {
+                    method: 'GET',
+                    // headers: {
+                    //     'Content-Type': 'application/json;charset=utf-8'
+                    // },
+                });
+                let json = await response.json()
+                return json
             }
+
+            setFirstRender(false)
+            loadDoors()
+                .then(doors => setDoors(doors))
+                .catch(e => {
+                    console.warn(e)
+                    setResponseText(JSON.stringify(e))
+                })
+            // .catch(e => alert(e))}
         }
 
-        loadDoors()
-            .then(doors => setDoors(doors))
-            .catch(e=> {
-                console.warn(e)
-                setResponseText(JSON.stringify(e))
-            })
-            // .catch(e => alert(e))
-    })
+    }, [])
 
     const sendUserData = async (userData) => {
         try {
@@ -208,7 +215,7 @@ function App() {
                 </div>
                 <div>
                     {
-                        EXAMPLE_DOORS.map(door => <Lock door={door}/>)
+                        doors.map(door => <Lock door={door}/>)
                     }
                 </div>
                 <p className="App-result-area">

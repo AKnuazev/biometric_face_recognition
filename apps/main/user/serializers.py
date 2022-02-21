@@ -9,7 +9,7 @@ class BfrDoorSerializer(serializers.ModelSerializer):
     class Meta:
         model = BfrDoor
         fields = (
-            'code', 'name', 'users_indoor_list'
+            'id', 'code', 'name', 'users_indoor_list'
         )
 
 

@@ -8,9 +8,8 @@ export function Lock({door}) {
     // const {door.door_id} = props
     const enterDoor = async () => {
         try {
-
-            let response = await fetch('http://localhost:8000/api_v1/main/users/login?is_entrance=' + (opened ? '0' : '1') + '&door_id=' + door.code, {
-                method: 'POST',
+            let response = await fetch('http://localhost:8000/api_v1/main/users/login/?is_entrance=' + (opened ? '0' : '1') + '&door_id=' + door.id, {
+                method: 'GET',
                 // headers: {
                 //     'Content-Type': 'application/json;charset=utf-8'
                 // },
@@ -18,8 +17,9 @@ export function Lock({door}) {
             let json = await response.json()
             if (json.success) {
                 setOpened(!opened)
+                // setResponseText(json.data)
             } else {
-                alert(json.error)
+                alert(json.err_msg)
             }
         } catch (e) {
             console.warn(e)
