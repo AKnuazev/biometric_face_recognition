@@ -1,6 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
-import {useState} from "react";
+import {useEffect, useState} from "react";
+import {Lock} from "./Lock";
 
 
 function App() {
@@ -28,6 +29,52 @@ function App() {
     const [responseText, setResponseText] = useState('')
 
     const [imageTaken, setImageTaken] = useState(false)
+
+    const EXAMPLE_DOORS = [
+        {
+            'code': 12,
+            "name": "Дверь 1",
+            "users_indoor_list": [2]
+        },
+        {
+            'code': 23,
+            "name": "Дверь 2",
+            "users_indoor_list": [2]
+        },
+        {
+            'code': 34,
+            "name": "Дверь 3",
+            "users_indoor_list": [2]
+        },
+        {
+            'code': 45,
+            "name": "Дверь 4",
+            "users_indoor_list": [2]
+        },
+    ]
+    const [doors, setDoors] = useState(EXAMPLE_DOORS)
+    useEffect(() => {
+        const loadDoors = async () => {
+            let response = await fetch('http://localhost:8000/api_v1/main/rooms', {
+                method: 'GET',
+                // headers: {
+                //     'Content-Type': 'application/json;charset=utf-8'
+                // },
+            });
+            let json = await response.json()
+            if (json.success) {
+                setDoors(true)
+            }
+        }
+
+        loadDoors()
+            .then(doors => setDoors(doors))
+            .catch(e=> {
+                console.warn(e)
+                setResponseText(JSON.stringify(e))
+            })
+            // .catch(e => alert(e))
+    })
 
     const sendUserData = async (userData) => {
         try {
@@ -130,10 +177,15 @@ function App() {
     return (
         <div className="App">
             <header className="App-header">
+                {/*<div className="App-topbar">*/}
+                {/*    <button className="App-topbar-btn" onClick={goToAdmin}>*/}
+                {/*        Admin panel*/}
+                {/*    </button>*/}
+                {/*</div>*/}
                 <div className="App-topbar">
-                    <button className="App-topbar-btn" onClick={goToAdmin}>
+                    <a className="App-topbar-btn" href="http://localhost:8000/admin">
                         Admin panel
-                    </button>
+                    </a>
                 </div>
                 <div style={{flexDirection: 'row'}}>
                     {!gotLoginResult && <img src={logo} className="App-logo" alt="logo"/>}
@@ -144,12 +196,20 @@ function App() {
                     <p>
                         Biometric Face Recognition
                     </p>
-                    <button className="Login-button" onClick={login}>
-                        Login
-                    </button>
+                    <p style={{color: 'lightgray', fontSize: 25}}>
+                        Press any lock to open
+                    </p>
+                    {/*<button className="Login-button" onClick={login}>*/}
+                    {/*    Login*/}
+                    {/*</button>*/}
                     {/*<button className="App-button" onClick={()=>sendUserData({user_id: '4'})}>*/}
                     {/*    4*/}
                     {/*</button>*/}
+                </div>
+                <div>
+                    {
+                        EXAMPLE_DOORS.map(door => <Lock door={door}/>)
+                    }
                 </div>
                 <p className="App-result-area">
                     Response:<br/>
@@ -170,49 +230,49 @@ function App() {
                 {/*>*/}
                 {/*  Learn React*/}
                 {/*</a>*/}
-                {inAdmin &&
-                <div>
-                    <form onSubmit={sendNewUserData}>
-                        <label>
-                            Name:
-                            <input type="text" value={name} onChange={setName}/>
-                        </label>
-                        <br/>
-                        <br/>
-                        <label>
-                            Username:
-                            <input type="text" value={username} onChange={setUsername}/>
-                        </label>
-                        <br/>
-                        <br/>
-                        <label>
-                            Email:
-                            <input type="text" value={email} onChange={setEmail}/>
-                        </label>
-                        <br/>
-                        <br/>
-                        <label>
-                            Phone:
-                            <input type="text" value={phone} onChange={setPhone}/>
-                        </label>
-                        <br/>
-                        <br/>
-                        <label>
-                            ACL:
-                            <input type="text" value={ACL} onChange={setACL}/>
-                        </label>
-                        <br/>
-                        <br/>
-                        {imageTaken && <input type="submit" value="Отправить"/>}
-                        {!imageTaken && <input type="submit" value="Отправить" disabled/>}
-                    </form>
+                {/*{inAdmin &&*/}
+                {/*<div>*/}
+                {/*    <form onSubmit={sendNewUserData}>*/}
+                {/*        <label>*/}
+                {/*            Name:*/}
+                {/*            <input type="text" value={name} onChange={setName}/>*/}
+                {/*        </label>*/}
+                {/*        <br/>*/}
+                {/*        <br/>*/}
+                {/*        <label>*/}
+                {/*            Username:*/}
+                {/*            <input type="text" value={username} onChange={setUsername}/>*/}
+                {/*        </label>*/}
+                {/*        <br/>*/}
+                {/*        <br/>*/}
+                {/*        <label>*/}
+                {/*            Email:*/}
+                {/*            <input type="text" value={email} onChange={setEmail}/>*/}
+                {/*        </label>*/}
+                {/*        <br/>*/}
+                {/*        <br/>*/}
+                {/*        <label>*/}
+                {/*            Phone:*/}
+                {/*            <input type="text" value={phone} onChange={setPhone}/>*/}
+                {/*        </label>*/}
+                {/*        <br/>*/}
+                {/*        <br/>*/}
+                {/*        <label>*/}
+                {/*            ACL:*/}
+                {/*            <input type="text" value={ACL} onChange={setACL}/>*/}
+                {/*        </label>*/}
+                {/*        <br/>*/}
+                {/*        <br/>*/}
+                {/*        {imageTaken && <input type="submit" value="Отправить"/>}*/}
+                {/*        {!imageTaken && <input type="submit" value="Отправить" disabled/>}*/}
+                {/*    </form>*/}
 
-                    <button onClick={takePicture}>
-                        Take picture
-                    </button>
+                {/*    <button onClick={takePicture}>*/}
+                {/*        Take picture*/}
+                {/*    </button>*/}
 
-                </div>
-                }
+                {/*</div>*/}
+                {/*}*/}
             </header>
         </div>
     );
