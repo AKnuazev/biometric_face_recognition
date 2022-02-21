@@ -3,16 +3,44 @@ from django.db import transaction
 from .models import *
 
 
+class BfrDoorSerializer(serializers.ModelSerializer):
+    users_indoor_list = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
+
+    class Meta:
+        model = BfrDoor
+        fields = (
+            'code', 'name', 'users_indoor_list'
+        )
+
+
+class BfrUserInfoSerializer(serializers.ModelSerializer):
+    full_name = serializers.CharField(source='get_full_name', read_only=True)
+    acl = BfrDoorSerializer(read_only=True, many=True)
+
+    class Meta:
+        model = BfrUser
+        fields = (
+            'id', BfrUser.USERNAME_FIELD, 'full_name', 'telephone', 'email'
+            'acl', 'last_indoor', 'indoor_time', 'last_outdoor', 'outdoor_time'
+        )
+        # read_only_fields = (
+        #     'id', BfrUser.USERNAME_FIELD, 'full_name', 'telephone', 'email'
+        #     'acl', 'last_indoor', 'indoor_time', 'last_outdoor', 'outdoor_time'
+        # )
+
+
 class BfrUserSerializer(serializers.ModelSerializer):
     full_name = serializers.CharField(source='get_full_name', read_only=True)
+    acl = BfrDoorSerializer(read_only=True, many=True)
 
     class Meta:
         model = BfrUser
         fields = (
             'id', BfrUser.USERNAME_FIELD, 'email', 'name', 'surname', 'otchestvo', 'telephone',
-            'full_name', 'password', 'acl', 'is_staff', 'is_superuser', 'is_admin', 'is_active'
+            'full_name', 'password', 'acl', 'is_staff', 'is_superuser', 'is_admin', 'is_active',
+            'last_indoor', 'indoor_time', 'last_outdoor', 'outdoor_time'
         )
-        read_only_fields = ('is_superuser',)
+        read_only_fields = ('is_superuser', 'last_indoor', 'indoor_time', 'last_outdoor', 'outdoor_time')
         extra_kwargs = {'password': {'write_only': True, 'required': False}}
 
     @transaction.atomic

@@ -10,16 +10,17 @@ import django
 django.setup()
 
 from django.db import transaction
-from django.contrib.auth import get_user_model
-from apps.main.user.models import BfrUser
+from apps.main.user.models import BfrUser, BfrDoor, BfrSystem
 
 
 @transaction.atomic
 def create_init_data():
-    # user = get_user_model()
-    # user.objects.create_superuser(username='admin', password='123')
+    BfrSystem.objects.create(emergency_mode=False)
     user = BfrUser.objects.create_superuser(username='admin', name='Администратор', surname='Администраторов',
-                                            otchestvo='Администраторович', password='123')
+                                            otchestvo='Администраторович', email='admin@example.com',  password='123')
+    door_1 = BfrDoor.objects.create(code=1, name='Главная дверь')
+    door_2 = BfrDoor.objects.create(code=2, name='Второй этаж')
+    door_3 = BfrDoor.objects.create(code=3, name='Третий этаж')
 
 
 create_init_data()

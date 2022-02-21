@@ -1,0 +1,139 @@
+02/19/2022 14:30:28 Пользователь Sdrtyju Vbfdg Stfygh вошел в систему
+02/19/2022 14:34:56 Неизвестный пользователь попытался войти в систему
+02/19/2022 15:55:00 Пользователь Дмитриев Дмитрий Дмитриевич вошел в систему
+02/19/2022 15:55:24 Пользователь Иванов Иван Иванович вошел в систему
+02/19/2022 15:56:12 Неизвестный пользователь попытался войти в систему
+02/19/2022 15:56:29 Пользователь Иванов Иван Иванович вошел в систему
+02/19/2022 15:57:39 Пользователь Дмитриев Дмитрий Дмитриевич вошел в систему
+02/19/2022 15:58:00 Неизвестный пользователь попытался войти в систему
+02/19/2022 16:00:05 Пользователь Денисов Денис Денисович вошел в систему
+02/19/2022 16:00:24 Неизвестный пользователь попытался войти в систему
+02/19/2022 16:05:51 Пользователь Артёмов Артём Артёмович вошел в систему
+02/19/2022 16:06:03 Неизвестный пользователь попытался войти в систему
+02/19/2022 16:06:14 Not Found: /manifest.json
+02/19/2022 16:06:30 Пользователь Артёмов Артём Артёмович вошел в систему
+02/19/2022 16:06:30 Not Found: /manifest.json
+02/19/2022 16:06:40 Not Found: /manifest.json
+02/19/2022 16:06:48 Пользователь Артёмов Артём Артёмович вошел в систему
+02/19/2022 16:31:28 Пользователь Артёмов Артём Артёмович вошел в систему
+02/19/2022 16:33:46 Пользователь Артёмов Артём Артёмович вошел в систему
+02/21/2022 05:06:17 Пользователь Stav Artem Vict [id: 2] вошел через Главная дверь [id: 1]
+02/21/2022 05:06:17 Internal Server Error: /api_v1/main/users/login/
+Traceback (most recent call last):
+  File "C:\BFR\biometric_face_recognition\venv\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "C:\BFR\biometric_face_recognition\venv\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\BFR\biometric_face_recognition\venv\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "C:\BFR\biometric_face_recognition\venv\lib\site-packages\rest_framework\viewsets.py", line 125, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "C:\BFR\biometric_face_recognition\venv\lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\BFR\biometric_face_recognition\venv\lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "C:\BFR\biometric_face_recognition\venv\lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "C:\BFR\biometric_face_recognition\venv\lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "C:\BFR\biometric_face_recognition\apps\main\user\views.py", line 81, in login
+    return Response({'success': True, 'data': serializer.data})
+  File "C:\BFR\biometric_face_recognition\venv\lib\site-packages\rest_framework\serializers.py", line 555, in data
+    ret = super().data
+  File "C:\BFR\biometric_face_recognition\venv\lib\site-packages\rest_framework\serializers.py", line 253, in data
+    self._data = self.to_representation(self.instance)
+  File "C:\BFR\biometric_face_recognition\venv\lib\site-packages\rest_framework\serializers.py", line 507, in to_representation
+    for field in fields:
+  File "C:\BFR\biometric_face_recognition\venv\lib\site-packages\rest_framework\serializers.py", line 368, in _readable_fields
+    for field in self.fields.values():
+  File "C:\BFR\biometric_face_recognition\venv\lib\site-packages\django\utils\functional.py", line 48, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "C:\BFR\biometric_face_recognition\venv\lib\site-packages\rest_framework\serializers.py", line 356, in fields
+    for key, value in self.get_fields().items():
+  File "C:\BFR\biometric_face_recognition\venv\lib\site-packages\rest_framework\serializers.py", line 1052, in get_fields
+    field_names = self.get_field_names(declared_fields, info)
+  File "C:\BFR\biometric_face_recognition\venv\lib\site-packages\rest_framework\serializers.py", line 1153, in get_field_names
+    serializer_class=self.__class__.__name__
+AssertionError: The field 'acl' was declared on serializer BfrUserInfoSerializer, but has not been included in the 'fields' option.
+02/21/2022 05:08:08 C:\BFR\biometric_face_recognition\apps\main\user\serializers.py changed, reloading.
+02/21/2022 05:08:23 Пользователь Stav Artem Vict [id: 2] вошел через Главная дверь [id: 1]
+02/21/2022 05:08:23 Internal Server Error: /api_v1/main/users/login/
+Traceback (most recent call last):
+  File "C:\BFR\biometric_face_recognition\venv\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "C:\BFR\biometric_face_recognition\venv\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\BFR\biometric_face_recognition\venv\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "C:\BFR\biometric_face_recognition\venv\lib\site-packages\rest_framework\viewsets.py", line 125, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "C:\BFR\biometric_face_recognition\venv\lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\BFR\biometric_face_recognition\venv\lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "C:\BFR\biometric_face_recognition\venv\lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "C:\BFR\biometric_face_recognition\venv\lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "C:\BFR\biometric_face_recognition\apps\main\user\views.py", line 81, in login
+    return Response({'success': True, 'data': serializer.data})
+  File "C:\BFR\biometric_face_recognition\venv\lib\site-packages\rest_framework\serializers.py", line 555, in data
+    ret = super().data
+  File "C:\BFR\biometric_face_recognition\venv\lib\site-packages\rest_framework\serializers.py", line 253, in data
+    self._data = self.to_representation(self.instance)
+  File "C:\BFR\biometric_face_recognition\venv\lib\site-packages\rest_framework\serializers.py", line 507, in to_representation
+    for field in fields:
+  File "C:\BFR\biometric_face_recognition\venv\lib\site-packages\rest_framework\serializers.py", line 368, in _readable_fields
+    for field in self.fields.values():
+  File "C:\BFR\biometric_face_recognition\venv\lib\site-packages\django\utils\functional.py", line 48, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "C:\BFR\biometric_face_recognition\venv\lib\site-packages\rest_framework\serializers.py", line 356, in fields
+    for key, value in self.get_fields().items():
+  File "C:\BFR\biometric_face_recognition\venv\lib\site-packages\rest_framework\serializers.py", line 1052, in get_fields
+    field_names = self.get_field_names(declared_fields, info)
+  File "C:\BFR\biometric_face_recognition\venv\lib\site-packages\rest_framework\serializers.py", line 1153, in get_field_names
+    serializer_class=self.__class__.__name__
+AssertionError: The field 'acl' was declared on serializer BfrUserInfoSerializer, but has not been included in the 'fields' option.
+02/21/2022 05:10:03 C:\BFR\biometric_face_recognition\apps\main\user\views.py changed, reloading.
+02/21/2022 05:10:14 Пользователь Stav Artem Vict [id: 2] вошел через Главная дверь [id: 1]
+02/21/2022 05:10:14 Internal Server Error: /api_v1/main/users/login/
+Traceback (most recent call last):
+  File "C:\BFR\biometric_face_recognition\venv\lib\site-packages\django\core\handlers\exception.py", line 47, in inner
+    response = get_response(request)
+  File "C:\BFR\biometric_face_recognition\venv\lib\site-packages\django\core\handlers\base.py", line 181, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\BFR\biometric_face_recognition\venv\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "C:\BFR\biometric_face_recognition\venv\lib\site-packages\rest_framework\viewsets.py", line 125, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "C:\BFR\biometric_face_recognition\venv\lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "C:\BFR\biometric_face_recognition\venv\lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "C:\BFR\biometric_face_recognition\venv\lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "C:\BFR\biometric_face_recognition\venv\lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "C:\BFR\biometric_face_recognition\apps\main\user\views.py", line 83, in login
+    return Response({'success': True, 'data': serializer.data})
+  File "C:\BFR\biometric_face_recognition\venv\lib\site-packages\rest_framework\serializers.py", line 555, in data
+    ret = super().data
+  File "C:\BFR\biometric_face_recognition\venv\lib\site-packages\rest_framework\serializers.py", line 253, in data
+    self._data = self.to_representation(self.instance)
+  File "C:\BFR\biometric_face_recognition\venv\lib\site-packages\rest_framework\serializers.py", line 507, in to_representation
+    for field in fields:
+  File "C:\BFR\biometric_face_recognition\venv\lib\site-packages\rest_framework\serializers.py", line 368, in _readable_fields
+    for field in self.fields.values():
+  File "C:\BFR\biometric_face_recognition\venv\lib\site-packages\django\utils\functional.py", line 48, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "C:\BFR\biometric_face_recognition\venv\lib\site-packages\rest_framework\serializers.py", line 356, in fields
+    for key, value in self.get_fields().items():
+  File "C:\BFR\biometric_face_recognition\venv\lib\site-packages\rest_framework\serializers.py", line 1052, in get_fields
+    field_names = self.get_field_names(declared_fields, info)
+  File "C:\BFR\biometric_face_recognition\venv\lib\site-packages\rest_framework\serializers.py", line 1153, in get_field_names
+    serializer_class=self.__class__.__name__
+AssertionError: The field 'acl' was declared on serializer BfrUserInfoSerializer, but has not been included in the 'fields' option.
+02/21/2022 05:14:38 C:\BFR\biometric_face_recognition\apps\main\user\views.py changed, reloading.
+02/21/2022 05:15:00 Пользователь Stav Artem Vict [id: 2] вошел через Главная дверь [id: 1]
+02/21/2022 05:15:55 Пользователь Stav Artem Vict [id: 2] попытался войти через Второй этаж [id: 2], но у него нет доступа
+02/21/2022 05:16:12 Пользователь Stav Artem Vict [id: 2] вышел через Главная дверь [id: 1]

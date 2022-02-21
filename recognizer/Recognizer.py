@@ -4,6 +4,7 @@ import face_recognition
 import os
 import shutil
 import pickle
+import time
 
 PATH = os.path.dirname(os.path.abspath(__file__))
 
@@ -12,6 +13,14 @@ class RecognizationService:
     current_image_path = fr'{PATH}\current_image\current_image_1.jpg'
     users_images_path = fr'{PATH}\images_base'
     encode_list_path = fr'{PATH}\face-encode_lsit.pickle'
+
+    @classmethod
+    def test(cls):
+        cap = cv.VideoCapture(1, cv.CAP_DSHOW)
+        ret, frame = cap.read()
+        cv.imwrite(fr'{PATH}\current_image\dffdfdf.jpg', frame)
+        cap.release()
+        cv.destroyAllWindows()
 
     @classmethod
     def save_all_current_image(cls, user_id):
@@ -50,18 +59,26 @@ class RecognizationService:
     def make_photo(cls, camera_id):
         """Makes photo from camera and save it"""
         if camera_id == 0:
+            time.sleep(3)
             return False
 
         cap = cv.VideoCapture(0, cv.CAP_DSHOW)
         ret, frame = cap.read()
-        cv.imwrite(fr'{PATH}\current_image\current_image_{camera_id}.jpg', frame)
-        cap.release()
-        cv.destroyAllWindows()
+        cv.imwrite(fr'{PATH}\current_image\current_image_1.jpg', frame)
+        # cap.release()
+        # cv.destroyAllWindows()
 
         if camera_id == 1:
             faces_amount = len(face_recognition.face_locations(frame))
             if faces_amount != 1:
                 return False
+
+        # cap = cv.VideoCapture(0, cv.CAP_DSHOW)
+        # ret, frame = cap.read()
+        # cv.imwrite(fr'{PATH}\current_image\current_image_2.jpg', frame)
+        cap.release()
+        cv.destroyAllWindows()
+
         return True
 
     @classmethod

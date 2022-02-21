@@ -6,7 +6,7 @@ c:\"Program Files"\PostgreSQL\14\bin\psql.exe -U postgres -c "create database bf
 
 ..\venv\Scripts\python.exe C:\BFR\biometric_face_recognition\manage.py makemigrations
 ..\venv\Scripts\python.exe C:\BFR\biometric_face_recognition\manage.py migrate
-::..\venv\Scripts\python.exe C:\BFR\biometric_face_recognition\scripts\init_data.py
+..\venv\Scripts\python.exe C:\BFR\biometric_face_recognition\scripts\init_data.py
 
 
 
